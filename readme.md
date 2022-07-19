@@ -6,6 +6,11 @@
    In terminal: ```npm install @trycourier/courier```
    [Learn more >](https://www.courier.com/docs/guides/getting-started/nodejs/#using-the-sdk)
 
+   Access SDK in index.js:
+   ```javascript
+   const { CourierClient } = require("@trycourier/courier")
+   ```
+
 2. Get your API key
    [Learn more >](https://www.courier.com/docs/guides/getting-started/nodejs/#getting-your-api-keys)
 
@@ -15,5 +20,45 @@
    Install the [dotenv npm package](https://www.npmjs.com/package/dotenv) to access the API Key:
    In terminal: ```npm install dotenv --save```
 
+   Access your API Key in index.js:
+   ```javascript
+   const courier = CourierClient({ authorizationToken: process.env.API_KEY });
+   ```
+
+3. 
+
+## Single Channel Send
+
+Save the email of your recipient in the .env file as `EMAIL="example@email.com"`
+
+```javascript
+async function send() {
+    const { requestId } = await courier.send({
+        message: {
+          to: {
+            email: process.env.EMAIL,
+          },
+          content: {
+            title: "Welcome!",
+            body: "Thanks for signing up, {{name}}",
+          },
+          data: {
+            name: "@shreythecray",
+          },
+          routing: {
+            method: "single",
+            channels: ["email"],
+          },
+        },
+      });
+      
+      console.log(requestId)
+}
+
+send()
+```
+
 <img width="1293" alt="0-email" src="https://user-images.githubusercontent.com/28051494/179698659-55f4e35b-da44-41ec-847f-89cad2188f9f.png">
 
+
+## Multi-Channel Send
