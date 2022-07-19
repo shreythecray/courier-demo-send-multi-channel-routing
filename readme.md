@@ -25,8 +25,6 @@
    const courier = CourierClient({ authorizationToken: process.env.API_KEY });
    ```
 
-3. 
-
 ## Single Channel Send
 
 Save the email of your recipient in the .env file as `EMAIL="example@email.com"`
@@ -92,3 +90,5 @@ sync function send() {
 
 send()
 ```
+
+<img width="603" alt="0-sms" src="https://user-images.githubusercontent.com/28051494/179704311-975122dd-ade0-41c1-a43c-d2b2506ce26f.png">
