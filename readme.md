@@ -62,3 +62,33 @@ send()
 
 
 ## Multi-Channel Send
+
+```javascript
+sync function send() {
+    const { requestId } = await courier.send({
+        message: {
+          to: {
+            email: process.env.EMAIL,
+            //**NEW**
+            phone_number: process.env.PHONE
+          },
+          content: {
+            title: "Welcome!",
+            body: "Thanks for signing up, {{name}}",
+          },
+          data: {
+            name: "@shreythecray",
+          },
+          routing: {
+            //**NEW**
+            method: "all",
+            channels: ["email", "sms"],
+          },
+        },
+      });
+      
+      console.log(requestId)
+}
+
+send()
+```
