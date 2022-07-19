@@ -15,6 +15,5 @@
    Install the [dotenv npm package](https://www.npmjs.com/package/dotenv) to access the API Key:
    In terminal: ```npm install dotenv --save```
 
-3. 
+<img width="1293" alt="0-email" src="https://user-images.githubusercontent.com/28051494/179698659-55f4e35b-da44-41ec-847f-89cad2188f9f.png">
 
-4. 
