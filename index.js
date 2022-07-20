@@ -43,7 +43,7 @@ async function send_any_channel() {
         },
         routing: {
           method: "single",
-          channels: ["email", "sms"],
+          channels: ["sms", "email"],
         },
       },
     });
@@ -75,4 +75,4 @@ async function send_multi_channel() {
     console.log(requestId)
 }
 
-send_one_channel()
+send_multi_channel()
