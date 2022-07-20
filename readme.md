@@ -64,8 +64,39 @@ Example email received:
 ## Multi-Channel Send
 
 Update the routing object within the send request:
-*  Provide options for multiple channels and allow Courier to send to the first channel that successfully complete
-* 
+* Provide options for multiple channels and allow Courier to send to the first channel that successfully complete
+
+```javascript
+sync function send() {
+    const { requestId } = await courier.send({
+        message: {
+          to: {
+            email: process.env.EMAIL,
+            //**NEW**
+            phone_number: process.env.PHONE
+          },
+          content: {
+            title: "Welcome!",
+            body: "Thanks for signing up, {{name}}",
+          },
+          data: {
+            name: "@shreythecray",
+          },
+          routing: {
+            //**NEW**
+            method: "single",
+            channels: ["email", "sms"],
+          },
+        },
+      });
+      
+      console.log(requestId)
+}
+
+send()
+```
+
+* Send to all listed channels
 
 ```javascript
 sync function send() {
