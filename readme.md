@@ -25,36 +25,35 @@
 
 ## Single Channel Send
 
-Save the email of your recipient in the .env file as `EMAIL="example@email.com"`
+1. Save the email of your recipient in the .env file as `EMAIL="example@email.com"`
 
-Add an asynchronous function in your index.js file, which encloses the send request:
+2. Add an asynchronous function in your index.js file, which encloses the send request:
+   ```javascript
+   async function send() {
+       const { requestId } = await courier.send({
+           message: {
+             to: {
+               email: process.env.EMAIL,
+             },
+             content: {
+               title: "Welcome!",
+               body: "Thanks for signing up, {{name}}",
+             },
+             data: {
+               name: "@shreythecray",
+             },
+             routing: {
+               method: "single",
+               channels: ["email"],
+             },
+           },
+         });
 
-```javascript
-async function send() {
-    const { requestId } = await courier.send({
-        message: {
-          to: {
-            email: process.env.EMAIL,
-          },
-          content: {
-            title: "Welcome!",
-            body: "Thanks for signing up, {{name}}",
-          },
-          data: {
-            name: "@shreythecray",
-          },
-          routing: {
-            method: "single",
-            channels: ["email"],
-          },
-        },
-      });
-      
-      console.log(requestId)
-}
+         console.log(requestId)
+   }
 
-send()
-```
+   send()
+   ```
 
 Example email received:
 
@@ -63,70 +62,68 @@ Example email received:
 
 ## Multi-Channel Send
 
-Update the routing object within the send request:
-* Provide options for multiple channels and allow Courier to send to the first channel that successfully complete
+1. Update the routing object within the send request:
+   * Provide options for multiple channels and allow Courier to send to the first channel that successfully complete:
+   ```javascript
+   sync function send() {
+       const { requestId } = await courier.send({
+           message: {
+             to: {
+               email: process.env.EMAIL,
+               //**NEW**
+               phone_number: process.env.PHONE
+             },
+             content: {
+               title: "Welcome!",
+               body: "Thanks for signing up, {{name}}",
+             },
+             data: {
+               name: "@shreythecray",
+             },
+             routing: {
+               //**NEW**
+               method: "single",
+               channels: ["email", "sms"],
+             },
+           },
+         });
 
-```javascript
-sync function send() {
-    const { requestId } = await courier.send({
-        message: {
-          to: {
-            email: process.env.EMAIL,
-            //**NEW**
-            phone_number: process.env.PHONE
-          },
-          content: {
-            title: "Welcome!",
-            body: "Thanks for signing up, {{name}}",
-          },
-          data: {
-            name: "@shreythecray",
-          },
-          routing: {
-            //**NEW**
-            method: "single",
-            channels: ["email", "sms"],
-          },
-        },
-      });
-      
-      console.log(requestId)
-}
+         console.log(requestId)
+   }
 
-send()
-```
+   send()
+   ```
 
-* Send to all listed channels
+   * Send to all listed channels:
+   ```javascript
+   sync function send() {
+       const { requestId } = await courier.send({
+           message: {
+             to: {
+               email: process.env.EMAIL,
+               //**NEW**
+               phone_number: process.env.PHONE
+             },
+             content: {
+               title: "Welcome!",
+               body: "Thanks for signing up, {{name}}",
+             },
+             data: {
+               name: "@shreythecray",
+             },
+             routing: {
+               //**NEW**
+               method: "all",
+               channels: ["email", "sms"],
+             },
+           },
+         });
 
-```javascript
-sync function send() {
-    const { requestId } = await courier.send({
-        message: {
-          to: {
-            email: process.env.EMAIL,
-            //**NEW**
-            phone_number: process.env.PHONE
-          },
-          content: {
-            title: "Welcome!",
-            body: "Thanks for signing up, {{name}}",
-          },
-          data: {
-            name: "@shreythecray",
-          },
-          routing: {
-            //**NEW**
-            method: "all",
-            channels: ["email", "sms"],
-          },
-        },
-      });
-      
-      console.log(requestId)
-}
+         console.log(requestId)
+   }
 
-send()
-```
+   send()
+   ```
 
 Example SMS received:
 
